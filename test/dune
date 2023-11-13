@@ -1,0 +1,23 @@
+(library
+ (name eio_extended_test)
+ (flags
+  :standard
+  -w
+  +a-4-40-41-42-44-45-66
+  -warn-error
+  +a
+  -open
+  Base
+  -open
+  Expect_test_helpers_base)
+ (libraries
+  base
+  eio
+  eio-extended
+  eio_extended
+  eio_main
+  expect_test_helpers_core.expect_test_helpers_base
+  fpath)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane ppx_js_style -check-doc-comments)))
