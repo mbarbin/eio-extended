@@ -15,16 +15,19 @@ module Path = struct
   let cast (a : _ Eio.Path.t) : t' = (a :> t')
 
   let components t =
-    let is_absolute =
-      let path = t |> snd in
-      String.length path > 0 && Char.equal path.[0] '/'
-    in
-    let rec aux acc t =
-      match Eio.Path.split t with
-      | None -> if is_absolute then "" :: acc else acc
-      | Some (t, component) -> aux (component :: acc) t
-    in
-    aux [] t
+    if String.equal (snd t) ""
+    then [ "." ]
+    else (
+      let is_absolute =
+        let path = t |> snd in
+        String.length path > 0 && Char.equal path.[0] '/'
+      in
+      let rec aux acc t =
+        match Eio.Path.split t with
+        | None -> if is_absolute then "" :: acc else acc
+        | Some (t, component) -> aux (component :: acc) t
+      in
+      aux [] t)
   ;;
 
   let basename t =

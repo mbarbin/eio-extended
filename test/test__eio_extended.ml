@@ -78,7 +78,7 @@ let%expect_test "components" =
     {|
     ((fpath "\"\": invalid path")
      (path  "")
-     (components ())
+     (components (.))
      (parent_dir .)
      (dirname    .)
      (basename   "")) |}];
