@@ -70,6 +70,11 @@ module Path : sig
 
   val basename : _ Eio.Path.t -> string
   val dirname : _ Eio.Path.t -> string
+
+  (** [parent_dir p] is [p]'s parent directory. This is the same as [dirname],
+      returned as a path. If [p] is empty or equals ["."], this returns
+      ["."]. If p is ["/"], [parent_dir p] is [p] itself. *)
+  val parent_dir : 'a Eio.Path.t -> 'a Eio.Path.t
 end
 
 module Process : sig

@@ -47,6 +47,8 @@ module Path = struct
        | "/" -> "/"
        | _ -> failwith "Eio.Path.dirname: invalid path")
   ;;
+
+  let parent_dir ((root, _) as t) = root, dirname t
 end
 
 module Process = struct
