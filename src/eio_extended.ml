@@ -13,45 +13,8 @@ module Path = struct
   type t' = Eio.Fs.dir_ty Eio.Path.t
 
   let cast (a : _ Eio.Path.t) : t' = (a :> t')
-
-  let components t =
-    if String.equal (snd t) ""
-    then [ "." ]
-    else (
-      let is_absolute =
-        let path = t |> snd in
-        String.length path > 0 && Char.equal path.[0] '/'
-      in
-      let rec aux acc t =
-        match Eio.Path.split t with
-        | None -> if is_absolute then "" :: acc else acc
-        | Some (t, component) -> aux (component :: acc) t
-      in
-      aux [] t)
-  ;;
-
-  let basename t =
-    match Eio.Path.split t with
-    | Some (_, p) -> p
-    | None ->
-      (match t |> snd with
-       | ("" | "/") as p -> p
-       | _ -> failwith "Eio.Path.basename: invalid path")
-  ;;
-
-  let dirname t =
-    match Eio.Path.split t with
-    | Some ((_, dir), _) ->
-      let len = String.length dir in
-      if len = 0 then "." else dir
-    | None ->
-      (match t |> snd with
-       | "" -> "."
-       | "/" -> "/"
-       | _ -> failwith "Eio.Path.dirname: invalid path")
-  ;;
-
-  let parent_dir ((root, _) as t) = root, dirname t
+  let basename t = Option.map snd (Eio.Path.split t)
+  let dirname t = Option.map fst (Eio.Path.split t)
 end
 
 module Process = struct

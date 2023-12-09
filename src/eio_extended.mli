@@ -56,25 +56,10 @@ module Path : sig
 
   (** {2 Path manipulation}
 
-      Exploring adding unix-like path manipulation functions to [Eio.Path], such
-      as [basename] and [dirname], as well as a [Eio.Path.components] function
-      that resembles [Fpath.segs]. *)
+      Exploring adding unix-like path manipulation functions to [Eio.Path]. *)
 
-  (** [components p] is [p]'s {e non-empty} list of components. Absolute paths
-      have an initial empty string added, this allows to recover the path's
-      string with {!String.concat}[ ~sep:"/"]. *)
-  val components : _ Eio.Path.t -> string list
-
-  (** [basename] and [dirname] are meant to match the behavior of their unix
-      utils equivalent. *)
-
-  val basename : _ Eio.Path.t -> string
-  val dirname : _ Eio.Path.t -> string
-
-  (** [parent_dir p] is [p]'s parent directory. This is the same as [dirname],
-      returned as a path. If [p] is empty or equals ["."], this returns
-      ["."]. If p is ["/"], [parent_dir p] is [p] itself. *)
-  val parent_dir : 'a Eio.Path.t -> 'a Eio.Path.t
+  val basename : _ Eio.Path.t -> string option
+  val dirname : 'a Eio.Path.t -> 'a Eio.Path.t option
 end
 
 module Process : sig

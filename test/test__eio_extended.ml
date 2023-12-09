@@ -67,10 +67,8 @@ let%expect_test "components" =
       [%sexp
         { fpath : Sexp.t
         ; path = (path |> snd : string)
-        ; components = (Eio_extended.Path.components path : string list)
-        ; parent_dir = (Eio_extended.Path.parent_dir path |> snd : string)
-        ; dirname = (Eio_extended.Path.dirname path : string)
-        ; basename = (Eio_extended.Path.basename path : string)
+        ; dirname = (Eio_extended.Path.dirname path |> Option.map ~f:snd : string option)
+        ; basename = (Eio_extended.Path.basename path : string option)
         }]
   in
   test "";
@@ -78,10 +76,8 @@ let%expect_test "components" =
     {|
     ((fpath "\"\": invalid path")
      (path  "")
-     (components (.))
-     (parent_dir .)
-     (dirname    .)
-     (basename   "")) |}];
+     (dirname  ())
+     (basename ())) |}];
   test ".";
   [%expect
     {|
@@ -91,10 +87,8 @@ let%expect_test "components" =
        (parent   ./../)
        (filename "")))
      (path .)
-     (components (.))
-     (parent_dir .)
-     (dirname    .)
-     (basename   .)) |}];
+     (dirname  (""))
+     (basename (.))) |}];
   test "./.";
   [%expect
     {|
@@ -104,10 +98,8 @@ let%expect_test "components" =
        (parent   ././../)
        (filename "")))
      (path ./.)
-     (components (. .))
-     (parent_dir .)
-     (dirname    .)
-     (basename   .)) |}];
+     (dirname  (.))
+     (basename (.))) |}];
   test "./";
   [%expect
     {|
@@ -117,10 +109,8 @@ let%expect_test "components" =
        (parent   ./../)
        (filename "")))
      (path ./)
-     (components (.))
-     (parent_dir .)
-     (dirname    .)
-     (basename   .)) |}];
+     (dirname  (""))
+     (basename (.))) |}];
   test "./.foo";
   [%expect
     {|
@@ -130,10 +120,8 @@ let%expect_test "components" =
        (parent   ./)
        (filename .foo)))
      (path ./.foo)
-     (components (. .foo))
-     (parent_dir .)
-     (dirname    .)
-     (basename   .foo)) |}];
+     (dirname  (.))
+     (basename (.foo))) |}];
   test ".foo";
   [%expect
     {|
@@ -143,10 +131,8 @@ let%expect_test "components" =
        (parent   ./)
        (filename .foo)))
      (path .foo)
-     (components (.foo))
-     (parent_dir .)
-     (dirname    .)
-     (basename   .foo)) |}];
+     (dirname  (""))
+     (basename (.foo))) |}];
   test "/";
   [%expect
     {|
@@ -156,10 +142,8 @@ let%expect_test "components" =
        (parent   /)
        (filename "")))
      (path /)
-     (components (""))
-     (parent_dir /)
-     (dirname    /)
-     (basename   /)) |}];
+     (dirname  ())
+     (basename ())) |}];
   test "/bar";
   [%expect
     {|
@@ -169,10 +153,8 @@ let%expect_test "components" =
        (parent   /)
        (filename bar)))
      (path /bar)
-     (components ("" bar))
-     (parent_dir /)
-     (dirname    /)
-     (basename   bar)) |}];
+     (dirname  (/))
+     (basename (bar))) |}];
   test "foo/bar";
   [%expect
     {|
@@ -182,10 +164,8 @@ let%expect_test "components" =
        (parent   foo/)
        (filename bar)))
      (path foo/bar)
-     (components (foo bar))
-     (parent_dir foo)
-     (dirname    foo)
-     (basename   bar)) |}];
+     (dirname  (foo))
+     (basename (bar))) |}];
   test "/foo/bar";
   [%expect
     {|
@@ -195,10 +175,8 @@ let%expect_test "components" =
        (parent   /foo/)
        (filename bar)))
      (path /foo/bar)
-     (components ("" foo bar))
-     (parent_dir /foo)
-     (dirname    /foo)
-     (basename   bar)) |}];
+     (dirname  (/foo))
+     (basename (bar))) |}];
   test "/foo/bar/baz";
   [%expect
     {|
@@ -208,10 +186,8 @@ let%expect_test "components" =
        (parent   /foo/bar/)
        (filename baz)))
      (path /foo/bar/baz)
-     (components ("" foo bar baz))
-     (parent_dir /foo/bar)
-     (dirname    /foo/bar)
-     (basename   baz)) |}];
+     (dirname  (/foo/bar))
+     (basename (baz))) |}];
   test "/foo/bar//baz/";
   [%expect
     {|
@@ -221,10 +197,8 @@ let%expect_test "components" =
        (parent   /foo/bar/)
        (filename "")))
      (path /foo/bar//baz/)
-     (components ("" foo bar baz))
-     (parent_dir /foo/bar)
-     (dirname    /foo/bar)
-     (basename   baz)) |}];
+     (dirname  (/foo/bar))
+     (basename (baz))) |}];
   test "bar";
   [%expect
     {|
@@ -234,10 +208,8 @@ let%expect_test "components" =
        (parent   ./)
        (filename bar)))
      (path bar)
-     (components (bar))
-     (parent_dir .)
-     (dirname    .)
-     (basename   bar)) |}];
+     (dirname  (""))
+     (basename (bar))) |}];
   test "./foo/bar";
   [%expect
     {|
@@ -247,9 +219,7 @@ let%expect_test "components" =
           (parent   ./foo/)
           (filename bar)))
         (path ./foo/bar)
-        (components (. foo bar))
-        (parent_dir ./foo)
-        (dirname    ./foo)
-        (basename   bar)) |}];
+        (dirname  (./foo))
+        (basename (bar))) |}];
   ()
 ;;
