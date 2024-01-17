@@ -18,7 +18,6 @@
 (package
  (name eio-extended)
  (synopsis "Experimenting with a few additions to Eio's api")
- (description "Experimenting with a few additions to Eio's api")
  (depends
   (ocaml
    (>= 5.1))
