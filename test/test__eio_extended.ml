@@ -46,6 +46,26 @@ let%expect_test "With_casting" =
   ()
 ;;
 
+let%expect_test "empty fpath" =
+  require_does_raise [%here] (fun () ->
+    let p = Fpath.v "" in
+    print_endline (Fpath.to_string p));
+  [%expect {| (Invalid_argument "\"\": invalid path") |}]
+;;
+
+let%expect_test "dirname" =
+  Eio_main.run
+  @@ fun env ->
+  let cwd = Eio.Stdenv.cwd env in
+  let d =
+    Eio_extended.Path.dirname Eio.Path.(cwd / "p") |> Option.value_exn ~here:[%here]
+  in
+  require_does_raise [%here] (fun () ->
+    let p = Fpath.v (snd d) in
+    print_endline (Fpath.to_string p));
+  [%expect {| (Invalid_argument "\"\": invalid path") |}]
+;;
+
 let%expect_test "components" =
   Eio_main.run
   @@ fun env ->
