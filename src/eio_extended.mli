@@ -29,16 +29,6 @@
       val Eio.Process.cast_mgr : _ Eio.Process.mgr -> Eio.Process.mgr'
     ]} *)
 
-module Buf_write : sig
-  type t := Eio.Buf_write.t
-
-  (** Adding a [printf] function to [Eio.Buf_write] to make it easier to write
-      from format strings. *)
-
-  val printf : t -> ('a, unit, string, unit) format4 -> 'a
-  val aprintf : t -> ('a, Stdlib.Format.formatter, unit) format -> 'a
-end
-
 module Flow : sig
   (** {2 Casting} *)
 

@@ -11,8 +11,8 @@ depends: [
   "dune" {>= "3.12"}
   "ocaml" {>= "5.1"}
   "base" {with-test & >= "v0.16" & < "v0.17"}
-  "eio" {>= "0.13"}
-  "eio_main" {with-test & >= "0.13"}
+  "eio" {>= "0.14"}
+  "eio_main" {with-test & >= "0.14"}
   "expect_test_helpers_core" {with-test & >= "v0.16" & < "v0.17"}
   "ppx_jane" {>= "v0.16" & < "v0.17"}
   "ppx_js_style" {>= "v0.16" & < "v0.17"}

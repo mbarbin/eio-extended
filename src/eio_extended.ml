@@ -1,8 +1,3 @@
-module Buf_write = struct
-  let printf t fmt = Printf.ksprintf (fun str -> Eio.Buf_write.string t str) fmt
-  let aprintf t fmt = Format.kasprintf (fun str -> Eio.Buf_write.string t str) fmt
-end
-
 module Flow = struct
   type sink' = Eio.Flow.sink_ty Eio.Flow.sink
 

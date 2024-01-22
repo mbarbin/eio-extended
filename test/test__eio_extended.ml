@@ -9,10 +9,10 @@ let%expect_test "Buf_write.printf" =
   @@ fun env ->
   Eio.Buf_write.with_flow (Eio.Stdenv.stdout env)
   @@ fun w ->
-  Eio_extended.Buf_write.printf w "Hello, %s\n" "World!";
+  Eio.Buf_write.printf w "Hello, %s\n" "World!";
   Eio.Buf_write.flush w;
   [%expect {| Hello, World! |}];
-  Eio_extended.Buf_write.aprintf w "Hello Value %a\n" Value.pp (Value 42);
+  Eio.Buf_write.printf w "Hello Value %a\n" Value.pp (Value 42);
   Eio.Buf_write.flush w;
   [%expect {| Hello Value value:42 |}];
   ()
@@ -32,8 +32,7 @@ end = struct
   let _create' ~env : t = { stdout = (Eio.Stdenv.stdout env :> Eio_extended.Flow.sink') }
 
   let print_endline t str =
-    Eio.Buf_write.with_flow t.stdout
-    @@ fun w -> Eio_extended.Buf_write.printf w "%s\n" str
+    Eio.Buf_write.with_flow t.stdout @@ fun w -> Eio.Buf_write.printf w "%s\n" str
   ;;
 end
 
