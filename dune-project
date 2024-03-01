@@ -27,11 +27,11 @@
     (>= v0.16)
     (< v0.17)))
   (eio
-   (>= 0.14))
+   (>= 0.15))
   (eio_main
    (and
     :with-test
-    (>= 0.14)))
+    (>= 0.15)))
   (expect_test_helpers_core
    (and
     :with-test
