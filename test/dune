@@ -9,14 +9,14 @@
   -open
   Base
   -open
-  Expect_test_helpers_base)
+  Expect_test_helpers)
  (libraries
   base
   eio
   eio-extended
   eio_extended
   eio_main
-  expect_test_helpers_core.expect_test_helpers_base
+  expect-test-helpers
   fpath)
  (inline_tests)
  (lint
