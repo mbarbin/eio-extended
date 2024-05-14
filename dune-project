@@ -20,7 +20,7 @@
  (synopsis "Experimenting with a few additions to Eio's api")
  (depends
   (ocaml
-   (>= 5.1))
+   (>= 5.2))
   (base
    (and
     :with-test
