@@ -1,3 +1,14 @@
+## 0.0.6 (2024-09-08)
+
+### Added
+
+- Configure `dev-setup` dependencies.
+
+### Changed
+
+- Split test package.
+- Use `expect_test_helpers_core.expect_test_helpers_base`.
+
 ## 0.0.5 (2024-07-26)
 
 ### Added

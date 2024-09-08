@@ -1,5 +1,6 @@
 (library
  (name eio_extended_test)
+ (public_name eio-extended-tests.eio_extended_test)
  (flags
   :standard
   -w
@@ -9,14 +10,14 @@
   -open
   Base
   -open
-  Expect_test_helpers)
+  Expect_test_helpers_base)
  (libraries
   base
   eio
   eio-extended
   eio_extended
   eio_main
-  expect-test-helpers
+  expect_test_helpers_core.expect_test_helpers_base
   fpath)
  (inline_tests)
  (lint
