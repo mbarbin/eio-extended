@@ -15,6 +15,8 @@
 
 (documentation "https://mbarbin.github.io/eio-extended/")
 
+(implicit_transitive_deps false)
+
 (package
  (name eio-extended)
  (synopsis "Experimenting with a few additions to Eio's api")
